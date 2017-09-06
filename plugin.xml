@@ -42,7 +42,9 @@
         <framework src="MediaPlayer.framework" />
         <framework src="MediaToolbox.framework" />
         <framework src="SystemConfiguration.framework" />
-        <framework src="src/ios/Frameworks/GoogleCast.framework" custom="true" />
+
+	<framework src="src/ios/Frameworks/GoogleCast.framework" custom="true" />
+	<resource-file src="src/ios/GoogleCastResources.bundle" />
 
         <hook type="after_plugin_install" src="scripts/ios-install.js" />
         <hook type="before_plugin_uninstall" src="scripts/ios-uninstall.js" />
