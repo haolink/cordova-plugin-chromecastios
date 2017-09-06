@@ -99,13 +99,20 @@ if (!isMac) {
 		https.get(paths.GoogleCastSDK_URL, function(response) {
 			response.pipe(file).on('close', function () {
 				console.log('Extracting GoogleCast SDK');
-				Q.nfcall(exec, "unzip -q " + safePath("./tmp/GoogleCastSDK.zip") + " -d " + safePath('./tmp'))
+				Q.nfcall(exec, "unzip -q \"" + safePath("./tmp/GoogleCastSDK.zip") + "\" -d \"" + safePath('./tmp') + "\"")
 					.then(function () {
-					return Q.nfcall(exec, commands.rm + " " + safePath(csdkDirectory + "/GoogleCast.framework"));
+					return Q.nfcall(exec, commands.rm + " \"" + safePath(csdkDirectory + "/GoogleCast.framework") + "\"");
 				})
 					.then(function () {
-					return Q.nfcall(exec, commands.mv + " " + safePath(paths.GoogleCast_Framework) + " " + safePath(csdkDirectory + "/GoogleCast.framework"));
+					return Q.nfcall(exec, commands.rmRF + " \"" + safePath(csdkDirectory + "/../../GoogleCastResources.bundle") + "\"");
 				})
+					.then(function () {
+					return Q.nfcall(exec, commands.mv + " \"" + safePath(paths.GoogleCast_Framework) + "\" \"" + safePath(csdkDirectory + "/GoogleCast.framework") + "\"");
+				})
+					.then(function () {
+						console.log(commands.cp + " -Rp \"" + safePath(csdkDirectory + "/GoogleCast.framework/Resources/GoogleCastResources.bundle") + "\" \"" + safePath(csdkDirectory + "/../../Resources/GoogleCastResources.bundle") + "\"");
+					return Q.nfcall(exec, commands.cp + " -Rp \"" + safePath(csdkDirectory + "/GoogleCast.framework/Resources/GoogleCastResources.bundle") + "\" \"" + safePath(csdkDirectory + "/../../Resources/GoogleCastResources.bundle") + "\"");	
+				})		
 					.then(function () {
 					deferred.resolve();
 				})

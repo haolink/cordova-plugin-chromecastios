@@ -14,11 +14,8 @@ This plugin is now feature complete for using a chromecast from ios cordova app.
 ## Install
 
     //Latest from github master
-    cordova plugin add https://github.com/ghenry22/cordova-plugin-chromecastios.git
+    cordova plugin add https://github.com/haolink/cordova-plugin-chromecastios.git
     
-    //latest published release from npm
-    cordova plugin add cordova-plugin-chromecastios
-
 ## Usage
 
 ### Metadata Object Values
